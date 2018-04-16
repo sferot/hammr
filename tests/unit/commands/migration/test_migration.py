@@ -194,7 +194,7 @@ class TestMigration(unittest.TestCase):
         m.login = "login"
         m.password = "password"
 
-        migration_config = self.get_migration_config(["/folder_to_exclude", "/folder/file_to_exclude.txt"])
+        migration_config = self.get_migration_config(["/folder_to_exclude", "/folder/file_to_exclude.txt", "/folder/file to exclude with space.txt"])
 
         # when
         m.upload_and_launch_migration_binary(m.login, m.password, migration_config, "local_uforge_migration_path",
@@ -207,7 +207,7 @@ class TestMigration(unittest.TestCase):
                                               migration_config["source"]["password"], "local_uforge_migration_path",
                                               "/tmp/" + constants.MIGRATION_BINARY_NAME)
 
-        exclude_parameter = "-e /folder_to_exclude -e /folder/file_to_exclude.txt "
+        exclude_parameter = "-e '/folder_to_exclude' -e '/folder/file_to_exclude.txt' -e '/folder/file to exclude with space.txt' "
         command_launch = 'chmod +x ' + '/tmp/' + constants.MIGRATION_BINARY_NAME + '; nohup ' + '/tmp/' + constants.MIGRATION_BINARY_NAME + ' -u login -p password -U url -n \'' + \
                          migration_config["name"] + '\' ' + exclude_parameter + ' >/dev/null 2>&1 &'
         mock_launch_binary.assert_called_with(ANY, command_launch)

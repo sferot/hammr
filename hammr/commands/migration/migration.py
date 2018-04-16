@@ -189,7 +189,7 @@ class Migration(Cmd, CoreGlobal):
         exclude = ""
         if "exclude" in migration_config["source"]:
             for ex in migration_config["source"]["exclude"]:
-                exclude += "-e " + ex + " "
+                exclude += "-e '" + ex + "' "
 
         dir = "/tmp"
 
